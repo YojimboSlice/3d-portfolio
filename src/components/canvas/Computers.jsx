@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState, useRef } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Preload, useGLTF } from '@react-three/drei';
 import CanvasLoader from '../Loader';
@@ -35,18 +35,34 @@ const Desktop = ({ isMobile }) => {
 
 const Guitar = ({ isMobile }) => {
   const guitar = useGLTF('./guitar/acoustic_guitar.gltf');
-  Howler.volume(0.6);
-  const guitarSound = new Howl({
-    src: [guitarsound],
-  });
   const [isPlaying, setIsPlaying] = useState(false);
+  const guitarSoundRef = useRef(null);
+
+  useEffect(() => {
+    guitarSoundRef.current = new Howl({
+      src: [guitarsound],
+      loop: true,
+      volume: 0.5,
+    });
+
+    return () => {
+      guitarSoundRef.current.stop();
+      guitarSoundRef.current.unload();
+    };
+  }, []);
 
   const handleGuitarClick = () => {
     setIsPlaying(!isPlaying);
     if (!isPlaying) {
-      guitarSound.play();
+      guitarSoundRef.current.play();
+      console.log(isPlaying);
+    } else if (guitarSoundRef.current.playing() && !isPlaying) {
+      guitarSoundRef.current.seek(guitarSoundRef.current.seek());
+      guitarSoundRef.current.play();
+      console.log(isPlaying);
     } else {
-      guitarSound.pause();
+      guitarSoundRef.current.pause();
+      console.log(isPlaying);
     }
   };
 
