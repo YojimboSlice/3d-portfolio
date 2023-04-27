@@ -35,6 +35,10 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
 
+    console.log('myServiceId:', myServiceId);
+    console.log('myTemplateId:', myTemplateId);
+    console.log('myPublicKey:', myPublicKey);
+
     emailjs
       .send(
         myServiceId,
