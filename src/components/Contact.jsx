@@ -31,7 +31,7 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
 
-    fetch('../../.netlify/functions/contact', {
+    fetch('../.././netlify/functions/contact', {
       method: 'POST',
       body: JSON.stringify(form),
     })
