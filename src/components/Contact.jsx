@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
-import emailjs from '@emailjs/browser';
 
 import { styles } from '../styles';
 import { EarthCanvas } from './canvas';
@@ -18,45 +17,32 @@ const Contact = () => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
     setLoading(true);
 
-    const templateParams = {
-      from_name: form.name,
-      to_name: 'James',
-      from_email: form.email,
-      to_email: 'jamesryanlan@gmail.com',
-      message: form.message,
-    };
+    try {
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(formRef.current)).toString(),
+      });
 
-    emailjs
-      .send(
-        import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
-        templateParams,
-        import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY,
-      )
-      .then(
-        () => {
-          setLoading(false);
-          alert('Thank you. I will get back to you as soon as possible.');
+      setLoading(false);
+      alert('Thank you. I will get back to you as soon as possible.');
 
-          setForm({
-            name: '',
-            email: '',
-            message: '',
-          });
-        },
-        error => {
-          setLoading(false);
-
-          console.error(error);
-
-          alert('Something went wrong.');
-        },
-      );
+      setForm({
+        name: '',
+        email: '',
+        message: '',
+      });
+    } catch (error) {
+      setLoading(false);
+      console.error(error);
+      alert('Something went wrong.');
+    }
   };
+
   return (
     <div className='xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden'>
       <motion.div
@@ -67,7 +53,18 @@ const Contact = () => {
         <form
           ref={formRef}
           onSubmit={handleSubmit}
-          className='mt-12 flex flex-col gap-8'>
+          className='mt-12 flex flex-col gap-8'
+          name='contact'
+          data-netlify='true'>
+          <input
+            type='hidden'
+            name='bot-field'
+          />
+          <input
+            type='hidden'
+            name='form-name'
+            value='contact'
+          />
           <label className='flex flex-col'>
             <span className='text-white font-medium mb-4'>Your Name</span>
             <input
@@ -116,5 +113,4 @@ const Contact = () => {
     </div>
   );
 };
-
 export default SectionWrapper(Contact, 'contact');

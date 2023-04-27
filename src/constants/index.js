@@ -101,8 +101,8 @@ const experiences = [
     date: 'April 2022 - Present',
     points: [
       'Learning the fundamentals of JavaScript and how to use it in a web environment',
-      'Learn the fundamentals of HTML and CSS in order to build web applications',
-      'Building projects in JavaScript, such as a mock up banking app, to apply JavaScript knowledge',
+      'Learning the fundamentals of HTML and CSS in order to build web applications',
+      'Building projects in JavaScript, such as a mock up banking app, to apply JavaScript, HTML, and CSS knowledge',
     ],
   },
   {
