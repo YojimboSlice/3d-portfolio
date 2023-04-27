@@ -24,8 +24,9 @@ const Hero = () => {
         </div>
       </div>
       <ComputersCanvas />
-      <div className='absolute xs:bottom-10 bottom-32 w-full flex justify-left items-center'>
-        Click guitar to hear one of my songs!
+      <div className='absolute xs:bottom-10 bottom-32 w-full flex justify-left items-center ml-20'>
+        Click guitar to hear one of my songs! <br />
+        Click again if it hurts your ears 😭
       </div>
       <div className='absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center'>
         <a href='#about'>
