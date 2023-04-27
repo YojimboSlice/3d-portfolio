@@ -31,32 +31,37 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
 
-    fetch('../.././netlify/functions/contact', {
-      method: 'POST',
-      body: JSON.stringify(form),
-    })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Error sending email');
-        }
-        return response.json();
-      })
-      .then(data => {
-        setLoading(false);
-        alert('Thank you. I will get back to you as soon as possible.');
+    emailjs
+      .send(
+        import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: form.name,
+          to_name: 'James Yan Lan',
+          from_email: form.email,
+          to_email: 'jamesryanlan@gmail.com',
+          message: form.message,
+        },
+        import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY,
+      )
+      .then(
+        () => {
+          setLoading(false);
+          alert('Thank you. I will get back to you as soon as possible.');
 
-        setForm({
-          name: '',
-          email: '',
-          message: '',
-        });
-      })
-      .catch(error => {
-        setLoading(false);
-        console.error(error);
+          setForm({
+            name: '',
+            email: '',
+            message: '',
+          });
+        },
+        error => {
+          setLoading(false);
+          console.error(error);
 
-        alert('Ahh, something went wrong. Please try again.');
-      });
+          alert('Ahh, something went wrong. Please try again.');
+        },
+      );
   };
 
   return (
@@ -79,7 +84,7 @@ const Contact = () => {
               name='name'
               value={form.name}
               onChange={handleChange}
-              placeholder="What's your good name?"
+              placeholder="What's your name?"
               className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
             />
           </label>
@@ -90,7 +95,7 @@ const Contact = () => {
               name='email'
               value={form.email}
               onChange={handleChange}
-              placeholder="What's your web address?"
+              placeholder="What's your email address?"
               className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
             />
           </label>
@@ -101,7 +106,7 @@ const Contact = () => {
               name='message'
               value={form.message}
               onChange={handleChange}
-              placeholder='What you want to say?'
+              placeholder='What you do want to say?'
               className='bg-tertiary py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-none font-medium'
             />
           </label>
