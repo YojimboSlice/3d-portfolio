@@ -21,7 +21,8 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
 
-    try {
+    {
+      /*try {
       await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -40,6 +41,7 @@ const Contact = () => {
       setLoading(false);
       console.error(error);
       alert('Something went wrong.');
+    }*/
     }
   };
 
@@ -55,6 +57,7 @@ const Contact = () => {
           onSubmit={handleSubmit}
           className='mt-12 flex flex-col gap-8'
           name='contact'
+          method='POST'
           data-netlify='true'>
           <input
             type='hidden'
