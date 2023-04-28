@@ -10,7 +10,7 @@ import { slideIn } from '../utils/motion';
 const myServiceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const myTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const myPublicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-emailjs.init(myPublicKey);
+emailjs.init('0yueb1DhurlGuHUxj');
 
 const Contact = () => {
   const formRef = useRef();
@@ -36,10 +36,6 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
 
-    console.log('myServiceId:', myServiceId);
-    console.log('myTemplateId:', myTemplateId);
-    console.log('myPublicKey:', myPublicKey);
-
     emailjs
       .send(
         myServiceId,
@@ -51,7 +47,7 @@ const Contact = () => {
           to_email: 'jamesryanlan@gmail.com',
           message: form.message,
         },
-        myPublicKey,
+        '0yueb1DhurlGuHUxj',
       )
       .then(
         () => {
