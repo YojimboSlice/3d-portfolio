@@ -10,6 +10,7 @@ import { slideIn } from '../utils/motion';
 const myServiceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const myTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const myPublicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+emailjs.init(myPublicKey);
 
 const Contact = () => {
   const formRef = useRef();
