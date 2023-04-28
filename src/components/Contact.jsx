@@ -37,6 +37,7 @@ const Contact = () => {
 
     emailjs
       .send(
+        'default_service',
         myServiceId,
         myTemplateId,
         {
