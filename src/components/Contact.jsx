@@ -7,10 +7,18 @@ import { EarthCanvas } from './canvas';
 import { SectionWrapper } from '../hoc';
 import { slideIn } from '../utils/motion';
 
-const myServiceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const myTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-const myPublicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-emailjs.init('0yueb1DhurlGuHUxj');
+interface CustomImportMeta extends ImportMeta {
+  env: {
+    VITE_EMAILJS_SERVICE_ID: string;
+    VITE_EMAILJS_TEMPLATE_ID: string;
+    VITE_EMAILJS_PUBLIC_KEY: string;
+  };
+}
+
+const myServiceId = (import.meta as CustomImportMeta).env.VITE_EMAILJS_SERVICE_ID;
+const myTemplateId = (import.meta as CustomImportMeta).env.VITE_EMAILJS_TEMPLATE_ID;
+const myPublicKey = (import.meta as CustomImportMeta).env.VITE_EMAILJS_PUBLIC_KEY;
+
 
 const Contact = () => {
   const formRef = useRef();
@@ -47,7 +55,7 @@ const Contact = () => {
           to_email: 'jamesryanlan@gmail.com',
           message: form.message,
         },
-        '0yueb1DhurlGuHUxj',
+        myPublicKey,
       )
       .then(
         () => {
