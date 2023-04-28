@@ -72,8 +72,6 @@ const Contact = () => {
       );
   };
 
-  console.log('import.meta.env:', import.meta.env);
-
   return (
     <div
       className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden`}>
