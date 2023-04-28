@@ -11,6 +11,10 @@ const myServiceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const myTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
 const myPublicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
+console.log(myServiceId);
+console.log(myTemplateId);
+console.log(myPublicKey);
+
 const Contact = () => {
   const formRef = useRef();
   const [form, setForm] = useState({
@@ -37,7 +41,6 @@ const Contact = () => {
 
     emailjs
       .send(
-        'default_service',
         myServiceId,
         myTemplateId,
         {
