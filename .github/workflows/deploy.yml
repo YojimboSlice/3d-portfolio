@@ -20,7 +20,7 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        uses: npm install
 
       - name: Build project
         run: npm run build
@@ -53,3 +53,5 @@ jobs:
           VITE_EMAILJS_SERVICE_ID: ${{ secrets.VITE_EMAILJS_SERVICE_ID }}
           VITE_EMAILJS_TEMPLATE_ID: ${{ secrets.VITE_EMAILJS_TEMPLATE_ID }}
           VITE_EMAILJS_PUBLIC_KEY: ${{ secrets.VITE_EMAILJS_PUBLIC_KEY }}
+          CONTACT_API_KEY: ${{ secrets.CONTACT_API_KEY }}
+          CONTACT_TEMPLATE_ID: ${{ secrets.CONTACT_TEMPLATE_ID }}
