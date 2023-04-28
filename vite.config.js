@@ -1,28 +1,32 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-export default defineConfig({
-  plugins: [react()],
-  base: '/3d-portfolio/',
-  build: {
-    sourcemap: true,
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            return id
-              .toString()
-              .split('node_modules/')[1]
-              .split('/')[0]
-              .toString();
-          } else if (id.includes('src')) {
-            return 'app';
-          }
+export default defineConfig(({ mode }) => {
+  const isProduction = mode === 'production';
+
+  return {
+    plugins: [react()],
+    base: '/3d-portfolio/',
+    build: {
+      terserOptions: {
+        compress: {
+          // disable console output in production mode
+          drop_console: isProduction,
         },
       },
     },
-  },
-  optimizeDeps: {
-    include: ['emailjs-com'],
-  },
+    define: {
+      'process.env.NODE_ENV': JSON.stringify(mode),
+      // load environment variables
+      'import.meta.env.VITE_EMAILJS_SERVICE_ID': JSON.stringify(
+        process.env.VITE_EMAILJS_SERVICE_ID,
+      ),
+      'import.meta.env.VITE_EMAILJS_TEMPLATE_ID': JSON.stringify(
+        process.env.VITE_EMAILJS_TEMPLATE_ID,
+      ),
+      'import.meta.env.VITE_EMAILJS_PUBLIC_KEY': JSON.stringify(
+        process.env.VITE_EMAILJS_PUBLIC_KEY,
+      ),
+    },
+  };
 });
