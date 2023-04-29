@@ -68,10 +68,6 @@ const Contact = () => {
       );
   };
 
-  console.log(myServiceId);
-  console.log(myTemplateId);
-  console.log(myPublicKey);
-
   return (
     <div
       className={`xl:mt-12 flex xl:flex-row flex-col-reverse gap-10 overflow-hidden`}>
