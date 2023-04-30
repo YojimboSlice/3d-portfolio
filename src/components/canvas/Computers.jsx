@@ -70,24 +70,26 @@ const Guitar = ({ isMobile }) => {
     <mesh onClick={handleGuitarClick}>
       <primitive
         object={guitar.scene}
-        scale={isMobile ? 0.7 : 4.9}
-        position={isMobile ? [0, -3, -2.2] : [0.5, -2.9, 4.35]}
+        scale={isMobile ? 4.85 : 4.9}
+        position={isMobile ? [2.5, -2.8, 0] : [0.5, -2.9, 4.35]}
         rotation={[1.6, 3.07, -1.5]}
       />
     </mesh>
   );
 };
 
-const ComputersCanvas = () => {
+const ComputersCanvas = ({ onMobileChange }) => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(max-width: 500px)');
 
     setIsMobile(mediaQuery.matches);
+    onMobileChange(mediaQuery.matches);
 
     const handleMediaQueryChange = event => {
       setIsMobile(event.matches);
+      onMobileChange(mediaQuery.matches);
     };
 
     mediaQuery.addEventListener('change', handleMediaQueryChange);

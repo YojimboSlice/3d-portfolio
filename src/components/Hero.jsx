@@ -1,9 +1,15 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 import { styles } from '../styles';
 import { ComputersCanvas } from './canvas';
 
 const Hero = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  const handleMobileChange = mobile => {
+    setIsMobile(mobile);
+  };
   return (
     <section className='relative w-full h-screen mx-auto'>
       <div
@@ -23,11 +29,19 @@ const Hero = () => {
           </p>
         </div>
       </div>
-      <ComputersCanvas />
+      <ComputersCanvas onMobileChange={handleMobileChange} />
       <div className='absolute xs:bottom-10 bottom-32 w-full flex justify-left items-center ml-20'>
-        Click guitar to hear one of my songs! <br />
-        Click again if it hurts your ears 😭
+        {isMobile ? (
+          <>Click guitar for song!</>
+        ) : (
+          <>
+            Click guitar to hear one of my songs!
+            <br />
+            Click again if it hurts your ears 😭
+          </>
+        )}
       </div>
+
       <div className='absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center'>
         <a href='#about'>
           <div className='w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2'>
